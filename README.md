@@ -14,11 +14,11 @@ basado en componentes con Formik y validaciones con Yup
 ## Screenshots
 
 Vista Mobile
-![Mobile](https://github.com/Lema1/Responsive-Side-Menu/blob/main/public/screenshot/mobile.png?raw=true)
+![Mobile](https://github.com/Lema1/Forms-with-Formik-Yup/blob/main/public/screenshot/mobile.png?raw=true)
 
 Vista Desktop
-![Desktop](https://github.com/Lema1/Responsive-Side-Menu/blob/main/public/screenshot/desktop.png?raw=true)
-![Desktop-1](https://github.com/Lema1/Responsive-Side-Menu/blob/main/public/screenshot/desktop-1.png?raw=true)
+![Desktop](https://github.com/Lema1/Forms-with-Formik-Yup/blob/main/public/screenshot/desktop.png?raw=true)
+![Desktop-1](https://github.com/Lema1/Forms-with-Formik-Yup/blob/main/public/screenshot/desktop-1.png?raw=true)
 ## Installation
 
 Instalar proyecto con npm
