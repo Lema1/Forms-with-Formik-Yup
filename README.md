@@ -1,34 +1,110 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# Forms with Formik & Yup
 
-First, run the development server:
+Creacion de formularios responsivo con diseño Mobile First, 
+basado en componentes con Formik y validaciones con Yup
 
+
+## Tech Stack
+
+**Client:** React, Next Js, Sass, Formik, Yup, Axios
+
+
+
+## Screenshots
+
+Vista Mobile
+![Mobile](https://github.com/Lema1/Responsive-Side-Menu/blob/main/public/screenshot/mobile.png?raw=true)
+
+Vista Desktop
+![Desktop](https://github.com/Lema1/Responsive-Side-Menu/blob/main/public/screenshot/desktop.png?raw=true)
+![Desktop-1](https://github.com/Lema1/Responsive-Side-Menu/blob/main/public/screenshot/desktop-1.png?raw=true)
+## Installation
+
+Instalar proyecto con npm
+
+En primer lugar, ejecute el servidor de desarrollo:
 ```bash
 npm run dev
 # or
 yarn dev
 ```
+    
+## Usage/Examples
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Validation Expample
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```javascript
+const validate = Yup.object({
+    title: Yup.string()
+      .min(3, "* Minimo 3 carácteres")
+      .max(100, "* No puede superar los 100 carácteres")
+      .required("* Requerido"),
+    body: Yup.string()
+      .min(3, "* Minimo 3 carácteres")
+      .max(254, "* No puede superar los 254 carácteres")
+      .required("* Requerido"),
+  });
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Submit Expample
+```javascript
+const handleOnSubmit = async (values, setSubmitting) => {
+    await axios
+      .post("https://jsonplaceholder.typicode.com/posts", values)
+      .then((response) => {
+        if (response.status === 201) {
+          console.log("Agregado", response.data);
+          setSubmitting(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err.response.status, err.response.statusText);
+        setSubmitting(true);
+      });
+  };
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Form Expample
+```javascript
+import { InputText, InputNumber, InputTextArea } from "../components/InputForm";
+import { Formik, Form } from "formik";
+import * as Yup from "yup";
 
-## Learn More
+function App() {
+   <Formik
+    initialValues={{
+        title: "",
+        body: "",
+        userId: "",
+    }}
+    validationSchema={validate}
+    onSubmit={(values, { setSubmitting }) => handleOnSubmit(values, setSubmitting)}
+    >
+    {({ handleSubmit, isSubmitting, resetForm, setFieldValue }) => (
+        <Form onSubmit={handleSubmit}>
+        <div className="form__container">
+            <InputText name="title" title="Titulo" />
+            <InputTextArea name="body" title="Cuerpo" setFieldValue={setFieldValue}/>
+            <InputNumber name="userId" title="ID Usuario" />
+        </div>
+        <div className="form__buttons">
+            <button type="reset" className="form__buttons-reset" onClick={resetForm}>Limpiar</button>
+            <button type="submit" className="form__buttons-submit" disabled={isSubmitting}>Agregar</button>
+        </div>
+        </Form>
+    )}
+    </Formik>
+}
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Color Reference
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+| Color             | Hex                                                                |
+| ----------------- | ------------------------------------------------------------------ |
+| Primary Color | ![#ff8000](https://via.placeholder.com/10/ff8000?text=+) #ff8000 |
+| Secondary Color | ![#fff](https://via.placeholder.com/10/fff?text=+) #fff |
+| Third Color | ![#000](https://via.placeholder.com/10/000?text=+) #000 |
+| Primary Ligth Color | ![#ffa449](https://via.placeholder.com/10/ffa449?text=+) #ffa449 |
+| Grey Color | ![#dbdbdb](https://via.placeholder.com/10/dbdbdb?text=+) #dbdbdb |
+| Red Color | ![#ff0000](https://via.placeholder.com/10/ff0000?text=+) #ff0000 |
